@@ -110,7 +110,7 @@ async function DisplayAlbums() {
             console.log(folder);
 
             // Now my next task is to fetch the info.json file from the folders in the directory songs.
-            let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/info.json`);
+            let a = await fetch(`/songs/${folder}/info.json`);
             let response = await a.json();
 
             // This info.json file i am gonna use to populate my albums that is cards that will eventually make it dynamic insertion of the cards.

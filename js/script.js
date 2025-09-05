@@ -83,8 +83,40 @@ const playmusic = (track, pause = false) => {
 }
 
 
-// This functions helps to display the different albums dynamically that builds a new feature for it, it is not hardcoded in HTML.
-
+// This is the new function we have made for our netlify deployment part.
+function populateSongList(songArray) {
+    let songUL = document.querySelector(".songlist ul");
+    songUL.innerHTML = "";
+    for (const song of songArray) {
+        songUL.innerHTML += `<li>
+            <img class="invert" src="img/music.svg" alt="">
+            <div class="info">
+                <div>${song.replaceAll("%20", " ").replace(".mp3", "")}</div>
+                <div>Tunesta</div>
+            </div>
+            <div class="playnow">
+                <span>Play now</span>
+                <img class="invert" src="img/playsong.svg" alt="">
+                </div>
+                </li>`;
+            }
+            
+            // Add click listeners to the new song list items
+            Array.from(songUL.getElementsByTagName("li")).forEach(e => {
+                e.addEventListener("click", () => {
+                    const trackName = e.querySelector(".info").firstElementChild.innerHTML.trim() + ".mp3";
+                    playmusic(trackName);
+                });
+            });
+        }
+        
+        
+        
+        
+        
+        
+        
+        // This functions helps to display the different albums dynamically that builds a new feature for it, it is not hardcoded in HTML.
 async function DisplayAlbums() {
     // // This fetch is happening from the local server(VS code preview) and this will see that the songs is a directory so it will give a html code for that songs directory having some anchors tags for the files present inside them.
     // let a = await fetch(`/songs/`);
@@ -153,11 +185,20 @@ async function DisplayAlbums() {
     }
 
     Array.from(document.getElementsByClassName("card")).forEach(e => {
-        e.addEventListener("click", async (item) => {
+        e.addEventListener("click", (item) => {
             const folderName = item.currentTarget.dataset.folder;
-            await getsongs(`songs/${folderName}`);
-            if (songs.length > 0) {
-                playmusic(songs[0]);
+            currfolder = `songs/${folderName}`;
+
+            // Find the album in our downloaded data
+            const album = albums.find(a => a.folder === folderName);
+
+            // Use the song list from the manifest
+            if (album && album.songs) {
+                songs = album.songs;
+                populateSongList(songs); // New function to update the UI
+                if (songs.length > 0) {
+                    playmusic(songs[0]);
+                }
             }
         });
     });
@@ -165,13 +206,13 @@ async function DisplayAlbums() {
 }
 
 // Adding functionality to the Card, Loading the playlist whenever the card is clicked.
-Array.from(document.getElementsByClassName("card")).forEach(e => {
-    e.addEventListener("click", async (item) => {
-        songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
-        playmusic(songs[0]);
-    })
-})
-    
+// Array.from(document.getElementsByClassName("card")).forEach(e => {
+//     e.addEventListener("click", async (item) => {
+//         songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
+//         playmusic(songs[0]);
+//     })
+// })
+
 
 // This is the main function of our program, in which everything is going on when the webpage is opened, this runs mainly as our JS
 async function main() {

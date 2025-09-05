@@ -87,7 +87,7 @@ const playmusic = (track, pause = false) => {
 
 async function DisplayAlbums() {
     // This fetch is happening from the local server(VS code preview) and this will see that the songs is a directory so it will give a html code for that songs directory having some anchors tags for the files present inside them.
-    let a = await fetch(`http://127.0.0.1:3000/songs/`);
+    let a = await fetch(`/songs/`);
     let response = await a.text();
 
     // We make this div because we have to use DOM, so we kinda make a mini webpage inside our main webpage that is hidden to user, but we are using it to access the elements using the DOM of the JS.

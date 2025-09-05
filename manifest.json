@@ -1,0 +1,40 @@
+{
+    "albums": [
+        {
+            "folder": "Ammy Virk",
+            "title": "Ammy Virk",
+            "description": "Enjoy the Punjabi Energetics!",
+            "cover": "/songs/Ammy Virk/cover.jpg"
+        },
+        {
+            "folder": "Arijit Singh",
+            "title": "Arijit Singh",
+            "description": "Melodies from Arijit",
+            "cover": "/songs/Arijit Singh/cover.jpg"
+        },
+        {
+            "folder": "Atif Aslam",
+            "title": "Atif Aslam",
+            "description": "Atif for you!",
+            "cover": "/songs/Atif Aslam/cover.jpg"
+        },
+        {
+            "folder": "bgm",
+            "title": "Background Music",
+            "description": "Enjoy the Music",
+            "cover": "/songs/bgm/cover.jpg"
+        },
+        {
+            "folder": "romanticsongs",
+            "title": "Romantic Songs",
+            "description": "Enjoy the Music",
+            "cover": "/songs/romanticsongs/cover.jpg"
+        },
+        {
+            "folder": "Satinder Sartaj",
+            "title": "Satinder Sartaj",
+            "description": "Enjoy the Punjabi Melodies",
+            "cover": "/songs/Satinder Sartaj/cover.jpg"
+        }
+    ]
+}

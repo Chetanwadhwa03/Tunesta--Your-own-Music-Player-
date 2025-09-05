@@ -36,7 +36,7 @@ async function getsongs(folder) {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`${currfolder}/`)[1]);
+            songs.push(element.href.split(`/`).pop());
         }
     }
 
@@ -45,14 +45,14 @@ async function getsongs(folder) {
     songUL.innerHTML = "";
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + `<li><img class="invert" src="img/music.svg" alt="">
-                            <div class="info">
-                                <div>${song.replaceAll("%20", " ")}</div>
-                                <div>Chetan</div>
-                            </div>
-                            <div class="playnow">
-                                <span>Play now</span>
-                                <img class="invert" src="img/playsong.svg" alt="">
-                            </div> </li>`;
+                                <div class="info">
+                                    <div>${song.replaceAll("%20", " ")}</div>
+                                    <div>Chetan</div>
+                                </div>
+                                <div class="playnow">
+                                    <span>Play now</span>
+                                    <img class="invert" src="img/playsong.svg" alt="">
+                                </div> </li>`;
     }
 
     // Attach event-listener to all the songs
@@ -86,66 +86,101 @@ const playmusic = (track, pause = false) => {
 // This functions helps to display the different albums dynamically that builds a new feature for it, it is not hardcoded in HTML.
 
 async function DisplayAlbums() {
-    // This fetch is happening from the local server(VS code preview) and this will see that the songs is a directory so it will give a html code for that songs directory having some anchors tags for the files present inside them.
-    let a = await fetch(`/songs/`);
-    let response = await a.text();
+    // // This fetch is happening from the local server(VS code preview) and this will see that the songs is a directory so it will give a html code for that songs directory having some anchors tags for the files present inside them.
+    // let a = await fetch(`/songs/`);
+    // let response = await a.text();
 
-    // We make this div because we have to use DOM, so we kinda make a mini webpage inside our main webpage that is hidden to user, but we are using it to access the elements using the DOM of the JS.
-    let div = document.createElement("div");
-    div.innerHTML = response;
+    // // We make this div because we have to use DOM, so we kinda make a mini webpage inside our main webpage that is hidden to user, but we are using it to access the elements using the DOM of the JS.
+    // let div = document.createElement("div");
+    // div.innerHTML = response;
 
-    let anchors = div.getElementsByTagName("a");
+    // let anchors = div.getElementsByTagName("a");
+
+    // let cardcontainer = document.querySelector(".cardcontainer");
 
 
+    // // since anchors is a HTML collection so we cannot apply foreach to it so we are converting it to array.
+    // let array = Array.from(anchors);
+    // for (let index = 0; index < array.length; index++) {
+    //     const e = array[index];
+
+    //     if (e.href.includes("\songs")) {
+    //         // This folder will contain all the folder names that will be present in the song directory
+    //         let folder = e.href.split("/").slice(-2)[0];
+
+
+    //         // Now my next task is to fetch the info.json file from the folders in the directory songs.
+    //         let a = await fetch(`/songs/${folder}/info.json`);
+    //         let response = await a.json();
+
+    //         // This info.json file i am gonna use to populate my albums that is cards that will eventually make it dynamic insertion of the cards.
+
+    //         cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder="${folder}" class="card">
+    //                         <div class="play">
+    //                             <svg role="img" height="50" width="50" aria-hidden="true" viewBox="0 0 24 24">
+    //                                 <circle cx="12" cy="12" r="12" fill="#1DB954" />
+    //                                 <polygon points="9,7 17,12 9,17" fill="#000000" />
+    //                             </svg>
+    //                         </div>
+    //                         <img src="/songs/${folder}/cover.jpg" alt="song image">
+    //                         <h2>${response.title}</h2>
+    //                         <p>${response.description}</p>
+    //                     </div>`
+    //     }
+
+
+    // Using the manifest.json file to display the albums dynamically
     let cardcontainer = document.querySelector(".cardcontainer");
 
-    // since anchors is a HTML collection so we cannot apply foreach to it so we are converting it to array.
-    let array = Array.from(anchors);
-    for (let index = 0; index < array.length; index++) {
-        const e = array[index];
+    // 1. Fetch the single manifest file
+    let a = await fetch(`/manifest.json`);
+    let response = await a.json();
+    let albums = response.albums;
 
-        if (e.href.includes("\songs")) {
-            // This folder will contain all the folder names that will be present in the song directory
-            let folder = e.href.split("/").slice(-2)[0];
-            console.log(folder);
-
-            // Now my next task is to fetch the info.json file from the folders in the directory songs.
-            let a = await fetch(`/songs/${folder}/info.json`);
-            let response = await a.json();
-
-            // This info.json file i am gonna use to populate my albums that is cards that will eventually make it dynamic insertion of the cards.
-
-            cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder="${folder}" class="card">
-                            <div class="play">
-                                <svg role="img" height="50" width="50" aria-hidden="true" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="12" fill="#1DB954" />
-                                    <polygon points="9,7 17,12 9,17" fill="#000000" />
-                                </svg>
-                            </div>
-                            <img src="/songs/${folder}/cover.jpg" alt="song image">
-                            <h2>${response.title}</h2>
-                            <p>${response.description}</p>
-                        </div>`
-        }
+    // 2. Loop through the album data and create the cards
+    for (const album of albums) {
+        cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder="${album.folder}" class="card">
+            <div class="play">
+                <svg role="img" height="50" width="50" aria-hidden="true" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="12" fill="#1DB954" />
+                    <polygon points="9,7 17,12 9,17" fill="#000000" />
+                </svg>
+            </div>
+            <img src="${album.cover}" alt="album cover">
+            <h2>${album.title}</h2>
+            <p>${album.description}</p>
+        </div>`;
     }
 
-        // Adding functionality to the Card, Loading the playlist whenever the card is clicked.
-        Array.from(document.getElementsByClassName("card")).forEach(e => {
-            e.addEventListener("click", async (item) => {
-                songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
+    Array.from(document.getElementsByClassName("card")).forEach(e => {
+        e.addEventListener("click", async (item) => {
+            const folderName = item.currentTarget.dataset.folder;
+            await getsongs(`songs/${folderName}`);
+            if (songs.length > 0) {
                 playmusic(songs[0]);
-            })
-        })
+            }
+        });
+    });
+
 }
+
+// Adding functionality to the Card, Loading the playlist whenever the card is clicked.
+Array.from(document.getElementsByClassName("card")).forEach(e => {
+    e.addEventListener("click", async (item) => {
+        songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
+        playmusic(songs[0]);
+    })
+})
+    
 
 // This is the main function of our program, in which everything is going on when the webpage is opened, this runs mainly as our JS
 async function main() {
-    await getsongs("songs/romanticsongs");
-    playmusic(songs[0], true);
-
     // Display the Albums on the page.  
-    DisplayAlbums();
+    await DisplayAlbums();
 
+    // Set up default state (optional, can be empty)
+    document.querySelector(".songinfo").innerHTML = "Select a song";
+    document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 
     // attach event-listener to play,prev and next.
     play.addEventListener("click", () => {
@@ -219,16 +254,16 @@ async function main() {
     })
 
     // Adding event listener to the mute and volume buttons
-    document.querySelector(".volume>img").addEventListener("click", (e)=>{
-        if(e.target.src.includes("volume-on.svg")){
-            e.target.src=e.target.src.replace("volume-on.svg","volume-mute.svg");
-            currentsong.volume=0;
-            document.querySelector(".range").getElementsByTagName("input")[0].value=0;
+    document.querySelector(".volume>img").addEventListener("click", (e) => {
+        if (e.target.src.includes("volume-on.svg")) {
+            e.target.src = e.target.src.replace("volume-on.svg", "volume-mute.svg");
+            currentsong.volume = 0;
+            document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
         }
-        else{
-            e.target.src=e.target.src.replace("volume-mute.svg","volume-on.svg");
+        else {
+            e.target.src = e.target.src.replace("volume-mute.svg", "volume-on.svg");
             currentsong.volume = .1;
-            document.querySelector(".range").getElementsByTagName("input")[0].value=10;
+            document.querySelector(".range").getElementsByTagName("input")[0].value = 10;
         }
     })
 

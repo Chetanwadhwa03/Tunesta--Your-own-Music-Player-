@@ -25,7 +25,7 @@ function formatTime(seconds) {
 // while making dynamic albums, we have taken an argument named folder in the getsongs function so that we could play the songs from the folder, not directly to songs, and then accordingly we are making the changes.
 async function getsongs(folder) {
     currfolder = folder;
-    let a = await fetch(`http://127.0.0.1:3000/${currfolder}/`);
+    let a = await fetch(`/${currfolder}/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;

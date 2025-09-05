@@ -263,11 +263,11 @@ async function main() {
     // Applying event listener to the previous button
     previous.addEventListener("click", () => {
         console.log("previous button clicked");
-        let index = songs.indexOf(currentsong.src.split("/").slice(-1)[0])
+        let index = songs.indexOf(decodeURI(currentsong.src.split("/").pop()));
         if ((index - 1) >= 0) {
             playmusic(songs[index - 1]);
         }
-    })
+    });
 
     // Applying event listener to the next button
     // theory regarding slice and splice, slice(startindex, endindex), it gives me a new array according to the index mentioned.
@@ -275,7 +275,7 @@ async function main() {
 
     next.addEventListener("click", () => {
         console.log("Next button clicked");
-        let index = songs.indexOf(currentsong.src.split("/").slice(-1)[0])
+        let index = songs.indexOf(decodeURI(currentsong.src.split("/").pop()))
         let nextindex = (index + 1) % (songs.length);
         if ((index + 1) < songs.length) {
             playmusic(songs[nextindex]);

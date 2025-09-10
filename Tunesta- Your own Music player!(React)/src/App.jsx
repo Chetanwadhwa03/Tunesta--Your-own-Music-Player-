@@ -1,4 +1,5 @@
 import Maincontent from "./components/Maincontent"
+import Playbar from "./components/Playbar"
 import Sidebar from "./components/Sidebar"
 
 function App() {
@@ -10,10 +11,12 @@ function App() {
         </div>
         <div className="right">
           <Maincontent />
-
+        <div className="playbar">
+          <Playbar />
+        </div>
         </div>
       </div>
-
+        
     </>
   )
 }

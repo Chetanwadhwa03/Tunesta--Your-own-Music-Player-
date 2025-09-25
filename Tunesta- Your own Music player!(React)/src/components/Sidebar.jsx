@@ -4,10 +4,10 @@ import "./Utility.css"
 
 
 
-const Sidebar = () => {
-  return (
-   <>
-     <div className="close">
+const Sidebar = ({ songs }) => {
+    return (
+        <>
+            <div className="close">
                 <img width="30" className="invert" src="/img/close.svg" alt="close" />
             </div>
             <div className="home bg-grey round m-1 p-1">
@@ -24,15 +24,29 @@ const Sidebar = () => {
                 </div>
                 <div className="songlist">
                     <ul>
-                        
+                        {songs.map((song) => {
+                            return (
+                            <li>
+                                <img className="invert" src="img/music.svg" alt="" />
+                                <div className="info">
+                                    <div>{song.name}</div>
+                                    <div>Tunesta</div>
+                                </div>
+                                <div className="playnow">
+                                    <span>Play now</span>
+                                    <img className="invert" src="img/playsong.svg" alt="" />
+                                </div>
+                            </li>
+                            )
+                        })}
                     </ul>
                 </div>
 
                 {/*for now i have not added any footer section when i will want some of the links there as privacy and something something then i will just add it. */}
             </div>
-   </>
-   
-  )
+        </>
+
+    )
 }
 
 export default Sidebar

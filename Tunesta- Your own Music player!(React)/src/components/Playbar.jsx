@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import "./Style.css"
 import "./Utility.css"
 
-const Playbar = ({ isplaying, currentsong, audioref, setisplaying }) => {
+const Playbar = ({ songs, isplaying, currentsong, audioref, setisplaying, handleNextButton, handlePrevButton }) => {
 
     return (
         <>
-        <audio ref={audioref} src={currentsong? `http://localhost:3000/${currentsong.path}` : ""}></audio>
+        <audio ref={audioref} src={currentsong? `${import.meta.env.VITE_API_URL}${currentsong.path}` : ""}></audio>
 
 
             <div>
@@ -20,9 +20,10 @@ const Playbar = ({ isplaying, currentsong, audioref, setisplaying }) => {
                         {currentsong ? currentsong.name : "Select an Album"}
                     </div>
                     <div className="songbuttons">
-                        <img width="35" id="previous" src="/img/previoussong.svg" alt="previoussong" />
+                        <img width="35" id="previous" src="/img/previoussong.svg" alt="previoussong" onClick={()=> {handlePrevButton()}} />
                         <img width="35" id="play" src={isplaying ? "/img/pausesong.svg" : "/img/playsong.svg"} alt="play-pause" onClick={() => setisplaying(!isplaying)} />
-                        <img width="35" id="next" src="/img/nextsong.svg" alt="nextsong" />
+                        <img width="35" id="next" src="/img/nextsong.svg" alt="nextsong" onClick={()=>
+                            {handleNextButton()}} />
                     </div>
                     <div className="timeandvolume">
                         <div className="songtime">

@@ -26,7 +26,7 @@ const Sidebar = ({ songs }) => {
                     <ul>
                         {songs.map((song) => {
                             return (
-                            <li>
+                            <li key={song.path}>
                                 <img className="invert" src="img/music.svg" alt="" />
                                 <div className="info">
                                     <div>{song.name}</div>

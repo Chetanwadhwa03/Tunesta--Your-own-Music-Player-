@@ -12,6 +12,14 @@ function App() {
   // Lifting state up(from the playbar.jsx)
   const [isplaying, setIsPlaying] = useState(false);
 
+  // State to track the currentIndex, intially the value will be 0 because the first song is playing.
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+
+
+
+
+
   // Creating a useRef hook, as an global remote which will be paired after sometime.
   const audioref = useRef(null);
 
@@ -32,16 +40,20 @@ function App() {
   }, [])
 
 
+  // This useEffect hook will be executed whenever the isplaying or the currentsong state will change, that is being used to play/pause the song
+  useEffect(() => {
+    if (audioref.current) {
+      // Because initially the value of the audioref.current would be NULL so to check now whether the audioref remote control has been paired to our audio object TV in the playbar.jsx.
 
-
-
-
-
-
-
-
-
-
+      if (isplaying && currentsong) {
+        audioref.current.src = `${import.meta.env.VITE_API_URL}${currentsong.path}`;
+        audioref.current.play();
+      }
+      else {
+        audioref.current.pause();
+      }
+    }
+  }, [isplaying, currentsong]);
 
 
 
@@ -61,13 +73,6 @@ function App() {
   //   let response = await a.text();
   //   return response;
   // }
-
-
-
-
-
-
-
 
 
   // // Function for the dynamic behaviour when an album is clicked
@@ -92,6 +97,10 @@ function App() {
   // }
 
 
+
+  // Creating the useEffect hook for the audio object that we have build in the playbar.jsx.
+  // Imp: It is generally advised to allow the react manage as much as the DOM possible , so use this useref hook only for the cases where the work cannot be managed by the state and the props. like media player like things.
+
   const handleAlbumClick = (album) => {
     if (album.songs && album.songs.length > 0) {
       const firstsong = album.songs[0];
@@ -101,28 +110,33 @@ function App() {
       setSongs(album.songs);
       setCurrentSong(firstsong);
       setIsPlaying(true);
+      setCurrentIndex(0);
 
     }
   }
 
-  // Creating the useEffect hook for the audio object that we have build in the playbar.jsx.
-  // Imp: It is generally advised to allow the react manage as much as the DOM possible , so use this useref hook only for the cases where the work cannot be managed by the state and the props. like media player like things.
 
-  useEffect(() => {
-    if (audioref.current) {
-      // Because initially the value of the audioref.current would be NULL so to check now whether the audioref remote control has been paired to our audio object TV in the playbar.jsx.
-
-      if (isplaying && currentsong) {
-        audioref.current.src=`${import.meta.env.VITE_API_URL}${currentsong.path}`;
-        audioref.current.play();
-      }
-      else {
-        audioref.current.pause();
-      }
+  const handleNextButton = () => {
+    if (songs.length === 0) {
+      return;
     }
-  }, [isplaying, currentsong]);
+    else {
+      const nextindex = (currentIndex + 1) % (songs.length);
+      setCurrentIndex(nextindex);
+      setCurrentSong(songs[nextindex])
+    }
+  }
 
-
+  const handlePrevButton = () => {
+    if (songs.length === 0) {
+      return;
+    }
+    else {
+      const previndex = (currentIndex - 1 + songs.length )%songs.length;
+      setCurrentIndex(previndex);
+      setCurrentSong(songs[previndex]);
+    }
+  }
 
 
 
@@ -147,10 +161,13 @@ function App() {
             handleAlbumClick={handleAlbumClick} />
           <div className="playbar">
             <Playbar
+              songs={songs}
               isplaying={isplaying}
               currentsong={currentsong}
               audioref={audioref}
-              setisplaying={setIsPlaying} />
+              setisplaying={setIsPlaying}
+              handleNextButton={handleNextButton}
+              handlePrevButton={handlePrevButton} />
           </div>
         </div>
       </div>

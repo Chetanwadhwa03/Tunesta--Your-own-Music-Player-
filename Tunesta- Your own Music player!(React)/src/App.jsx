@@ -15,6 +15,20 @@ function App() {
   // State to track the currentIndex, intially the value will be 0 because the first song is playing.
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // State to display the songTime and the song duration
+  const [currentTime, setCurrentTime] = useState("00:00");
+  const [duration, setDuration] = useState("00:00");
+
+  // State to store the songTime and the song duration in seconds for the seekbar circle to move smoothly.
+
+  const[currentTimeInSeconds, setcurrentTimeInSeconds] = useState(0);
+  const[durationInSeconds, setdurationInSeconds] = useState(0);
+
+
+
+
+  // State to set the currentVolume(1:100% & 0:0%)
+  const [volume, setVolume] = useState(1);
 
 
 
@@ -54,6 +68,17 @@ function App() {
       }
     }
   }, [isplaying, currentsong]);
+
+
+  // When the volume state changes, then we have to make sure that it effects on the audio tag inbuilt attribute volume also
+  useEffect(() => {
+    if (audioref.current) {
+      audioref.current.volume = volume;
+    }
+  }, [volume])
+
+
+
 
 
 
@@ -132,10 +157,14 @@ function App() {
       return;
     }
     else {
-      const previndex = (currentIndex - 1 + songs.length )%songs.length;
+      const previndex = (currentIndex - 1 + songs.length) % songs.length;
       setCurrentIndex(previndex);
       setCurrentSong(songs[previndex]);
     }
+  }
+
+  const muteplaytoggle =()=>{
+    (volume === 0 ? setVolume(1) : setVolume(0) );
   }
 
 
@@ -167,7 +196,18 @@ function App() {
               audioref={audioref}
               setisplaying={setIsPlaying}
               handleNextButton={handleNextButton}
-              handlePrevButton={handlePrevButton} />
+              handlePrevButton={handlePrevButton}
+              duration={duration}
+              setDuration={setDuration}
+              currentTime={currentTime}
+              setCurrentTime={setCurrentTime}
+              volume={volume}
+              setVolume={setVolume}
+              muteplaytoggle={muteplaytoggle}
+              currentTimeInSeconds={currentTimeInSeconds}
+              setcurrentTimeInSeconds={setcurrentTimeInSeconds}
+              durationInSeconds={durationInSeconds}
+              setdurationInSeconds={setdurationInSeconds} />
           </div>
         </div>
       </div>

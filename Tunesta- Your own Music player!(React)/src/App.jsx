@@ -54,32 +54,34 @@ function App() {
   }, [])
 
 
-  // This useEffect hook will be executed whenever the isplaying or the currentsong state will change, that is being used to play/pause the song
+  // This useEffect hook will be executed whenever the isplaying or the currentsong state will change, that is being used to play/pause the song.
+
+  // Since if we just play/pause the song, and if we directly change the src everytime then the major bug would be that whenever we pause a song then play then it will again and again start from beginning, so for that we have made an if condition that if the newsrc is not equal to the currentsrc then only the src should change, and the fact is when we will just play pause the button then the newsrc would remain the same as the audioref src and therfore the audioref src will not change the if statement will not be executed and thereby the song will not again and again play from the starting. 
+
   useEffect(() => {
     if (audioref.current) {
       // Because initially the value of the audioref.current would be NULL so to check now whether the audioref remote control has been paired to our audio object TV in the playbar.jsx.
 
       if (isplaying && currentsong) {
-        audioref.current.src = `${import.meta.env.VITE_API_URL}${currentsong.path}`;
+        const newsrc=`${import.meta.env.VITE_API_URL}${currentsong.path}`;
+        if(audioref.current.src !== newsrc){
+          audioref.current.src=newsrc;
+        }
         audioref.current.play();
       }
       else {
         audioref.current.pause();
       }
     }
-  }, [isplaying, currentsong]);
+  }, [isplaying,currentsong]);
 
-
+  
   // When the volume state changes, then we have to make sure that it effects on the audio tag inbuilt attribute volume also
   useEffect(() => {
     if (audioref.current) {
       audioref.current.volume = volume;
     }
   }, [volume])
-
-
-
-
 
 
   // function to play the music(Logic was already there in the vanilla.js), Here my vanilla JS code is treating the current song as the global audio object but in reality it is a state which we have made in react.
@@ -149,7 +151,10 @@ function App() {
       const nextindex = (currentIndex + 1) % (songs.length);
       setCurrentIndex(nextindex);
       setCurrentSong(songs[nextindex])
+      setIsPlaying(true)
+
     }
+
   }
 
   const handlePrevButton = () => {
@@ -160,6 +165,7 @@ function App() {
       const previndex = (currentIndex - 1 + songs.length) % songs.length;
       setCurrentIndex(previndex);
       setCurrentSong(songs[previndex]);
+      setIsPlaying(true)
     }
   }
 

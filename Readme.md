@@ -8,7 +8,7 @@ A responsive, front-end music streaming application built with vanilla JavaScrip
 
 ## 🚀 Live Demo
 
-![Tunesta Demo](./demo/tunesta-demo.gif)
+![Tunesta Demo](./demo/Tunesta-demo.gif)
 
 ---
 

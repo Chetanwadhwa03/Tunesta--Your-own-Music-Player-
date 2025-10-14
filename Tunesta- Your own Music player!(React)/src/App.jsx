@@ -1,6 +1,7 @@
 import Maincontent from "./components/Maincontent"
 import Playbar from "./components/Playbar"
 import Sidebar from "./components/Sidebar"
+import CursorGlow from "./components/Mousemove"
 import React, { useState, useEffect, useRef } from "react"
 
 
@@ -65,9 +66,8 @@ function App() {
       if (isplaying && currentsong) {
         const newsrc=`${import.meta.env.VITE_API_URL}${currentsong.path}`;
         if(audioref.current.src !== newsrc){
-          audioref.current.src=newsrc;
+          audioref.current.play();
         }
-        audioref.current.play();
       }
       else {
         audioref.current.pause();
@@ -185,8 +185,9 @@ function App() {
 
   return (
     <>
-      <div className="container flex bg-black">
-        <div className="left">
+      <CursorGlow/>  
+      <div className="container flex ">
+        <div className="left glass-effect ">
           <Sidebar songs={songs} />
         </div>
 
@@ -194,7 +195,7 @@ function App() {
           <Maincontent
             albums={albums}
             handleAlbumClick={handleAlbumClick} />
-          <div className="playbar">
+          <div className="playbar glass-effect">
             <Playbar
               songs={songs}
               isplaying={isplaying}
@@ -217,6 +218,8 @@ function App() {
           </div>
         </div>
       </div>
+
+      
 
     </>
   )

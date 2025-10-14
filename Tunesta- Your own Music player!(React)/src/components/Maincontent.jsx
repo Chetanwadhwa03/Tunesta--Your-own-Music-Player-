@@ -6,7 +6,7 @@ const Maincontent = ({albums,handleAlbumClick}) => {
     return (
         <>
             {/* This is my right side of the Tunesta app */}
-            <div className="header">
+            <div className="header glass-effect">
                 <div className="nav">
                     <div className="hamburgercontainer">
                         <img className="hamburger" width="45px" src="/img/hamburger.svg" alt="hamburger" />
@@ -33,7 +33,7 @@ const Maincontent = ({albums,handleAlbumClick}) => {
                     {/* <!-- Dyamically cards will be inserted using JS --> */ }
                     {albums.map((album) => {
                         return (
-                            <div key={album.folder} data-folder="album.folder" className="card" onClick={()=>handleAlbumClick(album)}>
+                            <div key={album.folder} data-folder="album.folder" className="card glass-effect interactive-card" onClick={()=>handleAlbumClick(album)}>
                                 <div className="play">
                                     <svg role="img" height="50" width="50" aria-hidden="true" viewBox="0 0 24 24">
                                         <circle cx="12" cy="12" r="12" fill="#1DB954" />

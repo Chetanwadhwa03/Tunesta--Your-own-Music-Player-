@@ -1,0 +1,516 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* The Classes that are made to better the UI */
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interactive-card {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interactive-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px 5px var(--shadow-color);
+}
+
+
+*{
+    box-sizing: border-box;
+}
+
+
+.close {
+    display: none;
+}
+
+
+.left {
+    width: 25vw;
+    padding: 10px;
+}
+
+.right {
+    width: 75vw;
+}
+
+
+
+
+.home ul li {
+    display: flex;
+    width: 14px;
+    gap: 15px;
+    list-style-type: none;
+    padding-top: 14px;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    padding: 23px 14px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.heading img {
+    width: 17px;
+}
+
+.library {
+    min-height: 80vh;
+    position: relative;
+
+}
+
+.footer {
+    display: flex;
+    font-size: 10px;
+    gap: 12px;
+    position: absolute;
+    bottom: 1px;
+    padding: 10px 0;
+
+}
+
+.footer a {
+    color: gray;
+}
+
+.right {
+    margin: 16px 0;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header>* {
+    padding: 20px;
+}
+
+.MusicPlaylists {
+    padding: 16px;
+}
+
+.MusicPlaylists h1 {
+   padding: 16px;
+}
+
+.hamburger {
+    display: none;
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.cardcontainer {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin: 30px;
+    max-height: 72vh;
+    overflow-y: auto;
+
+}
+
+.hamburgercontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px
+}
+
+.card img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.logo img {
+    width: 145px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.play {
+    position: absolute;
+    right: 17px;
+    top: 239px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+
+.card {
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* .card:hover{
+    background-color: rgb(105, 103, 103) ;
+    cursor: pointer;
+} */
+
+
+/* for this circle waala playbutton harry ne variable banaya hain --a karke and card pe hove karne pe uss variable ki value ko 1 kar diya hain, initially usko 0 se start kiya hain.. */
+/* .card:hover .play {
+    top: 150px;
+    opacity: 1;
+} */
+
+.buttons>* {
+    margin: 0 12px
+}
+
+/* ye maine lagaya hain flex box buttons pe */
+.buttons {
+    display: flex;
+}
+
+
+
+.signupbtn,
+.loginbtn {
+    border: 1px solid var(--text-secondary);
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.signupbtn {
+    background-color: transparent;
+    color: var(--text-secondary);
+}
+
+.signupbtn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+
+.loginbtn {
+    background-color: var(--primary-accent);
+    color: var(--text-primary);
+    border-color: var(--primary-accent);
+}
+
+.loginbtn:hover {
+    filter: brightness(1.15);
+}
+
+.playbar {
+    position: absolute;
+    left: 15px;
+    bottom: 2px;
+    /* filter: invert(1); */
+    border-radius: 10px;
+    padding: 12px;
+    width: 70vw;
+    min-height: 40px;
+}
+
+.songbuttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    cursor: pointer;
+}
+
+.songlist {
+    height: 544px;
+    overflow: auto;
+    margin-bottom: 44px;
+}
+
+.songlist ul {
+    padding: 0 12px;
+}
+
+.songlist ul li {
+    list-style-type: decimal;
+    display: flex;
+
+    gap: 12px;
+    cursor: pointer;
+    padding: 12px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 12px 0;
+    border-radius: 5px;
+    justify-content: space-between;
+
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+}
+
+.songlist ul li:hover {
+    background-color: rgb(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.1);
+
+}
+
+
+.songlist .info {
+    font-size: 13px;
+    width: 344px;
+}
+
+.info div {
+    word-break: break-all;
+}
+
+.playnow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playnow span {
+    font-size: 15px;
+    width: 64px;
+    padding: 12px;
+}
+
+.seekbar {
+    height: 6px;
+    width: 98%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: absolute;
+    bottom: 0;
+    margin: 6px;
+    cursor: pointer;
+}
+
+.circle {
+    width: 13px;
+    height: 13px;
+    border-radius: 13px;
+    background-color: var(--primary-accent);
+    position: relative;
+    bottom: 4px;
+    left: 0%;
+    transition: left 0.5s;
+}
+
+.songinfo {
+    color: var(--text-secondary);
+    padding: 0 12px;
+    width: 250px;
+}
+
+.songtime {
+    color: var(--text-secondary);
+    width: 84px;
+    padding: 0 12px;
+}
+
+
+.volume {
+    /* shuruwaati 2 cheeze maine likhii hain just to make sure ki volume and time match ho raho indentation mein vertically */
+    position: relative;
+    bottom: -2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+    cursor: pointer;
+}
+
+.range input {
+    cursor: pointer;
+    height: 28px;
+}
+
+
+.abovebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.timeandvolume {
+    display: flex;
+    justify-content: normal;
+    align-items: center;
+    gap:19px;
+}
+
+.songbuttons img,
+.volume img {
+    filter: brightness(0) invert(1);
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+}
+
+.songbuttons img:hover,
+.volume img:hover {
+    opacity: 1;
+}
+
+/* This is for our volume slider */
+input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    background: rgba(255, 255, 255, 0.2);
+    height: 4px;
+    border-radius: 2px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -6px; 
+    background-color: var(--primary-accent);
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+}
+
+.spaceadjustment{
+        display: none;
+    }
+
+
+@media (max-width: 1200px) {
+
+    .left {
+        position: absolute;
+        left: -500%;
+        transition: all .3s;
+        z-index: 1;
+        width: 373px;
+        padding: 0;
+    }
+
+    .left.sidebaropen{
+        left: 0%;
+    }
+
+
+    .close {
+        display: block;
+        position: absolute;
+        right: 31px;
+        top: 25px;
+        width: 29px;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .timeandvolume {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 27px;
+    }
+
+    .right {
+        width: 100vw;
+        margin: 0;
+        padding: 0 16px;
+    }
+
+    .playbar {
+        width: calc(100vw - 75px);
+        position: fixed;
+        bottom: 0px;
+        left: 37px;
+
+    }
+
+    .seekbar {
+        width: calc(100vw - 101px);
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .songinfo,
+    .songtime {
+        width: auto;
+    }
+
+   .card {
+        flex: 1 1 400px;
+    }
+
+    .cardcontainer {
+        margin: 0px;
+        justify-content: center;
+        max-height: 69vh;
+    }
+
+    .close {
+        display: block;
+    }
+
+    .abovebar {
+        flex-direction: column;
+        gap: 23px;
+        align-items: center;
+    }
+
+    .MusicPlaylists h1{
+         padding: 12px 2px;
+    }
+    .spaceadjustment{
+        display: none;
+    }
+}
+
+@media (max-width:500px) {
+    .card {
+        flex: 1 1 400px;
+    }
+    
+    .MusicPlaylists h1{
+         padding: 12px 2px;
+    }
+    .spaceadjustment{
+        display: none;
+    }
+}
+
+@media (max-width:390px){
+    .header{
+        width:379px;
+    }
+
+    .signupbtn .loginbtn{
+        padding: 6px 16px;
+    }
+
+    .spaceadjustment{
+        display: block;
+    }
+
+    .cardcontainer{
+       box-sizing: border-box;
+    }
+    .card{
+        flex: 1 1 150px;
+    }
+}

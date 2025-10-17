@@ -2,14 +2,14 @@ import React from 'react'
 import "./Style.css"
 import "./Utility.css"
 
-const Maincontent = ({albums,handleAlbumClick}) => {
+const Maincontent = ({albums,handleAlbumClick,handlehamburgerclick,isDropdownOpen,toggleDropdown}) => {
     return (
         <>
             {/* This is my right side of the Tunesta app */}
             <div className="header glass-effect">
                 <div className="nav">
-                    <div className="hamburgercontainer">
-                        <img className="hamburger" width="45px" src="/img/hamburger.svg" alt="hamburger" />
+                    <div className="hamburgercontainer ">
+                        <img className="hamburger" width="45px" src="/img/hamburger.svg" alt="hamburger" onClick={handlehamburgerclick} />
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M15 6L9.70711 11.2929C9.37377 11.6262 9.20711 11.7929 9.20711 12C9.20711 12.2071 9.37377 12.3738 9.70711 12.7071L15 18"
@@ -22,9 +22,12 @@ const Maincontent = ({albums,handleAlbumClick}) => {
                         </svg>
                     </div>
                 </div>
-                <div className="buttons">
+                <div className="buttons hide-on-mobile">
                     <button className="signupbtn">Sign up</button>
                     <button className="loginbtn">Log in</button>
+                </div>
+
+                <div className="spaceadjustment">
                 </div>
             </div>
             <div className="MusicPlaylists ">

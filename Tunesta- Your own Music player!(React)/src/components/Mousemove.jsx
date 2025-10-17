@@ -9,7 +9,6 @@ const CursorGlow = () => {
     useEffect(() => {
         const handleMouseMove = (e) => {
             // This is the core logic that MUST be correct
-            console.log("Mouse is at:", e.clientX, e.clientY); 
             setPosition({ x: e.clientX, y: e.clientY });
         };
 

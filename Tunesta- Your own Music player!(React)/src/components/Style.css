@@ -39,7 +39,9 @@
 
 
 
-
+*{
+    box-sizing: border-box;
+}
 
 
 .close {
@@ -120,7 +122,7 @@
 }
 
 .MusicPlaylists h1 {
-    padding: 16px;
+   padding: 16px;
 }
 
 .hamburger {
@@ -135,7 +137,7 @@
     flex-wrap: wrap;
 
     margin: 30px;
-    max-height: 60vh;
+    max-height: 72vh;
     overflow-y: auto;
 
 }
@@ -229,8 +231,9 @@
 }
 
 .playbar {
-    position: fixed;
-    bottom: 10px;
+    position: absolute;
+    left: 15px;
+    bottom: 2px;
     /* filter: invert(1); */
     border-radius: 10px;
     padding: 12px;
@@ -404,6 +407,10 @@ input[type='range']::-webkit-slider-thumb {
     border-radius: 50%;
 }
 
+.spaceadjustment{
+        display: none;
+    }
+
 
 @media (max-width: 1200px) {
 
@@ -416,12 +423,19 @@ input[type='range']::-webkit-slider-thumb {
         padding: 0;
     }
 
-    .left .close {
+    .left.sidebaropen{
+        left: 0%;
+    }
+
+
+    .close {
         display: block;
         position: absolute;
         right: 31px;
         top: 25px;
         width: 29px;
+        cursor: pointer;
+        z-index: 10;
     }
 
     .timeandvolume {
@@ -434,15 +448,20 @@ input[type='range']::-webkit-slider-thumb {
 
     .right {
         width: 100vw;
+        margin: 0;
+        padding: 0 16px;
     }
 
     .playbar {
         width: calc(100vw - 75px);
+        position: fixed;
+        bottom: 0px;
+        left: 37px;
 
     }
 
     .seekbar {
-        width: calc(100vw - 70px);
+        width: calc(100vw - 101px);
     }
 
     .hamburger {
@@ -454,18 +473,14 @@ input[type='range']::-webkit-slider-thumb {
         width: auto;
     }
 
-    .right {
-        margin: 0;
-    }
-
-    .card {
-        width: 55vw;
+   .card {
+        flex: 1 1 400px;
     }
 
     .cardcontainer {
         margin: 0px;
         justify-content: center;
-        max-height: 50vh;
+        max-height: 69vh;
     }
 
     .close {
@@ -477,10 +492,49 @@ input[type='range']::-webkit-slider-thumb {
         gap: 23px;
         align-items: center;
     }
+
+    .MusicPlaylists h1{
+         padding: 12px 2px;
+    }
+    .spaceadjustment{
+        display: none;
+    }
 }
 
 @media (max-width:500px) {
     .card {
-        width: auto;
+        flex: 1 1 400px;
     }
+    
+    .MusicPlaylists h1{
+         padding: 12px 2px;
+    }
+    .spaceadjustment{
+        display: none;
+    }
+}
+
+@media (max-width:390px){
+    .header{
+        width:379px;
+    }
+
+    .signupbtn .loginbtn{
+        padding: 6px 16px;
+    }
+
+    .spaceadjustment{
+        display: block;
+    }
+
+    .cardcontainer{
+       box-sizing: border-box;
+    }
+    .card{
+        flex: 1 1 150px;
+    }
+    .playbar{
+        
+    }
+
 }

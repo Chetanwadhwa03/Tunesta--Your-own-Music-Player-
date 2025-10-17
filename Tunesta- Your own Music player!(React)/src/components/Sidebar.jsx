@@ -4,10 +4,10 @@ import "./Utility.css"
 
 
 
-const Sidebar = ({ songs }) => {
+const Sidebar = ({ songs,handlesongclick,handleclosebutton}) => {
     return (
         <>
-            <div className="close">
+            <div className="close" onClick={handleclosebutton}>
                 <img width="30" className="invert" src="/img/close.svg" alt="close" />
             </div>
             <div className="home glass-effect round m-1 p-1">
@@ -24,9 +24,9 @@ const Sidebar = ({ songs }) => {
                 </div>
                 <div className="songlist">
                     <ul>
-                        {songs.map((song) => {
+                        {songs.map((song,index) => {
                             return (
-                            <li key={song.path}>
+                            <li key={song.path} onClick={()=>{handlesongclick(song,index)}}>
                                 <img className="invert" src="img/music.svg" alt="" />
                                 <div className="info">
                                     <div>{song.name}</div>

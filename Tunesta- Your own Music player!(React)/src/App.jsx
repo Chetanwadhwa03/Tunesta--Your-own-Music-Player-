@@ -31,9 +31,8 @@ function App() {
   // State to set the currentVolume(1:100% & 0:0%)
   const [volume, setVolume] = useState(1);
 
-
-
-
+  // State to set the display of the left block(because it get's disappeared when the screen size get's small)
+  const[isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Creating a useRef hook, as an global remote which will be paired after sometime.
   const audioref = useRef(null);
@@ -70,6 +69,7 @@ function App() {
         }
       }
       else {
+        // agar src poorane source ke barabar hain that means ye useeffect run hua hoga isplaying ke change hone ki wajah se that is why just usko pause kar diya.
         audioref.current.pause();
       }
     }
@@ -173,28 +173,38 @@ function App() {
     (volume === 0 ? setVolume(1) : setVolume(0) );
   }
 
+  const handlesongclick= (song,indexclickedsong) =>{
+    setCurrentSong(song);
+    setIsPlaying(true);
+    setCurrentIndex(indexclickedsong);
+  }
 
+  const handlehamburgerclick=()=>{
+    setIsMenuOpen(true);
+  }
 
+  const handleclosebutton=()=>{
+    setIsMenuOpen(false);
+  }
 
-
-
-
-
-
-
-
+  
   return (
     <>
       <CursorGlow/>  
       <div className="container flex ">
-        <div className="left glass-effect ">
-          <Sidebar songs={songs} />
+        <div className={`left glass-effect ${isMenuOpen? 'sidebaropen':''} `} >
+          <Sidebar 
+          songs={songs}
+          handlesongclick={handlesongclick}
+          handleclosebutton={handleclosebutton}/>
         </div>
 
         <div className="right">
           <Maincontent
             albums={albums}
-            handleAlbumClick={handleAlbumClick} />
+            handleAlbumClick={handleAlbumClick} 
+            handlehamburgerclick={handlehamburgerclick}/>
+
           <div className="playbar glass-effect">
             <Playbar
               songs={songs}

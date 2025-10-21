@@ -1,6 +1,6 @@
-# Tunesta - A Dynamic Music Player 🎵
+# 🎵 Tunesta - Your Personalized Music Streaming App
 
-A responsive, front-end music streaming application built with vanilla JavaScript, HTML, and CSS. This project uses a `manifest.json` file to dynamically load album and song data, making it scalable and easy to update without hardcoding.
+Tunesta is a dynamic, full-stack music streaming application built with the MERN stack (MongoDB - *in progress*, Express, React, Node.js). It features a modern, responsive UI with ambient effects and fetches album/song data from a dedicated backend API.
 
 **Live Site:** [**https://tunesta.netlify.app/**](https://tunesta.netlify.app/)
 
@@ -10,38 +10,75 @@ A responsive, front-end music streaming application built with vanilla JavaScrip
 
 ![Tunesta Demo](./demo/Tunesta-demo.gif)
 
+
 ---
 
 ## ✨ Key Features
 
-- **Dynamic Content:** Album cards are generated dynamically by fetching a `manifest.json` file.
-- **Playlist Loading:** Clicking an album fetches and displays the corresponding song list for that album.
-- **Full Playback Control:** Includes play, pause, next, previous, and seek functionality.
-- **Volume Adjustment:** A working volume slider and mute toggle.
-- **Responsive Design:** A clean and usable interface on both desktop and mobile devices.
+* **Full-Stack Architecture:** Frontend built with **React** (using Vite), backend powered by **Node.js** and **Express**.
+* **Dynamic Data Loading:** Albums and songs are fetched asynchronously from a custom REST API.
+* **Core Music Player Functionality:** Seamless playback controls (play, pause, next, previous), seek bar, and volume adjustment.
+* **Modern UI/UX:**
+    * Responsive design adapting to desktop, tablet, and mobile viewports.
+    * Ambient **Glassmorphism** aesthetic with subtle animations.
+    * Interactive **cursor glow effect** enhancing the user experience.
+* **Separated Deployment:** Frontend deployed on **Netlify**, backend API deployed on **Render**.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- HTML5
-- CSS3 (with Flexbox & Grid)
-- Vanilla JavaScript (ES6+) for DOM manipulation and event handling.
-- Deployed on **Netlify**.
+* **Frontend:** React (Vite), JavaScript (ES6+), CSS3
+* **Backend:** Node.js, Express.js
+* **Database:** *MongoDB (Planned for V2.0)*
+* **Deployment:**
+    * Frontend: Netlify
+    * Backend: Render
+* **Version Control:** Git & GitHub
 
 ---
 
-## 🔧 Getting Started
+## 🏗️ Project Architecture
+
+Tunesta utilizes a decoupled architecture:
+
+1.  **React Frontend:** Served statically by Netlify. Responsible for UI rendering and user interactions. Makes API calls to the backend.
+2.  **Express Backend API:** Hosted on Render. Serves album/song metadata via REST endpoints and provides static access to media files.
+
+---
+
+## 🔧 Getting Started Locally
 
 To run this project locally:
 
-1.  Clone the repository:
+1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/]
-    https://github.com/Chetanwadhwa03/Tunesta--Your-own-Music-Player-
+    git clone [https://github.com/Chetanwadhwa03/Tunesta--Your-own-Music-Player-.git](https://github.com/Chetanwadhwa03/Tunesta--Your-own-Music-Player-.git)
+    cd Tunesta--Your-own-Music-Player-
     ```
-2.  Navigate to the project directory:
+
+2.  **Setup & Run Backend:**
     ```bash
-    cd tunesta-music-player
+    cd Backend
+    npm install
+    node server.js
+    # (API will run on http://localhost:3000)
     ```
-3.  Open `index.html` in your browser (or use a Live Server extension).
+
+3.  **Setup & Run Frontend (in a new terminal):**
+    ```bash
+    cd "Tunesta- Your own Music player!(React)"
+    npm install
+    npm run dev
+    # (Frontend will run on http://localhost:5173 by default)
+    ```
+
+---
+
+## 🔮 Future Plans (V2.0)
+
+* **MongoDB Integration:** Replace hardcoded JSON data with a persistent MongoDB database.
+* **YouTube Integration:** Implement a unique feature allowing users to add songs by pasting YouTube links.
+* **User Authentication:** Add user accounts for personalized libraries.
+
+---

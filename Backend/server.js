@@ -1,7 +1,26 @@
 import express from 'express';
 import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const app = express()
-const port = 3000;
+const port = process.env.PORT || 3000;
+
+const connectDB = async() => {
+  try{
+    mongoose.connect(process.env.MONGODB_URI);
+    console.log("Connection to mongoDB is successful");
+  }
+  catch{
+    console.log("Connection failed to MongoDB");
+    process.exit(1);
+  }
+};
+
+connectDB();
+
 
 // Middleware. (This was used to remove the CORS error).
 app.use(cors());

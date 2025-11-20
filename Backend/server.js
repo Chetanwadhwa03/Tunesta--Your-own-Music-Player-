@@ -3,8 +3,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import album from './Models/Album.js';
-import user from './Models/User.js'
-
+import User from './Models/User.js'
+import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 
 // This command is written to use the env variable inside the server.js
 dotenv.config();
@@ -57,6 +58,7 @@ app.get('/albums', async (req, res) => {
   }
 });
 
+
 // Api for registration for the new user.
 app.post('/auth/register', async (req, res) => {
 
@@ -68,12 +70,12 @@ app.post('/auth/register', async (req, res) => {
       return res.status(400).json({ message: "Please provide the Email and the Password." });
     }
 
-    await user.create({ email, password });
+    const newuser=await User.create({ email, password });
 
     res.status(201).json({
       status: 'Success',
       message: 'User created successfully',
-      userID: user._id
+      userID: newuser._id
     });
 
   }
@@ -90,7 +92,57 @@ app.post('/auth/register', async (req, res) => {
 });
 
 
+// api for the login
+app.post('/auth/login', async (req,res)=>{
+  try{
+    const{email,password}=req.body;
+    if(!email || !password){
+      return res.status(400).json({message:'Please provide Email and the password'});
+    }
 
+    const userdetails=await User.findOne({email:email});
+
+    if(userdetails==null){
+      return res.status(401).json({message:'User does not exist'});
+    }
+    
+    // we have to compare the password that user has entered in this api route from req.body to the already present password in the database corresponding to the searched email.
+    const hashedpassword=userdetails.password;
+    const isMatch=await bcrypt.compare(password,hashedpassword);
+
+    if(!isMatch){
+      return res.status(401).json({message:'password do not match'});
+    }
+
+    // using JWT to assign the token to the specific users
+    const token= jwt.sign(
+      // payload: Data we want to insert into the token.
+      {
+        userid:userdetails._id,
+        email:userdetails.email
+      },
+      
+      // secret key
+      process.env.JWT_SECRET,
+
+      // this is for the security purpose, that user can login only for the one day, then automatically logout.
+      {expiresIn:'1d'}
+    );
+
+    // if we are here that means success
+    return res.status(200).json({message:'Login successful',
+      token: token,
+      user:{
+        id:userdetails._id,
+        email:userdetails.email
+      }
+    });
+  }
+  catch(error){
+    console.log(error);
+    return res.status(500).json({message:'Internal Server Error'});
+  }
+})
 
 
 

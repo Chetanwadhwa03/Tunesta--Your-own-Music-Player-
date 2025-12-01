@@ -1,0 +1,41 @@
+import React, { useState } from 'react'
+import "../components/Style.css"
+// import "../components/Utility.css" 
+import { Link } from 'react-router-dom'
+
+const Signup = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignup = (e) => {
+      e.preventDefault();
+      console.log("Signup Logic will go here:", email, password);
+  }
+
+  return (
+    <div className="container" style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="glass-effect" style={{ width: '450px', padding: '40px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 0 40px rgba(0,0,0,0.5)' }}>
+            
+            <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '32px' }}>Sign Up</h1>
+
+            <form onSubmit={handleSignup} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <input type='email' placeholder='Email Address' className='auth-input' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="password" placeholder="Create Password" className="auth-input" value={password} onChange={(e) => setPassword(e.target.value)} />
+                
+                {/* Visual change: Different button color or text */}
+                <button type="submit" className="auth-btn" style={{backgroundColor: '#1DB954'}}>
+                    Create Account
+                </button>
+            </form>
+
+            <p style={{ textAlign: 'center', color: '#a0aec0', fontSize: '14px', marginTop: '10px' }}>
+                Already have an account? 
+                {/* Link back to Login */}
+                <Link to="/login" className="auth-link">Log In</Link>
+            </p>
+        </div>
+    </div>
+  )
+}
+
+export default Signup

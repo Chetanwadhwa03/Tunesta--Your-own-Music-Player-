@@ -13,13 +13,84 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* --- Login/Signup Form Styles --- */
+
+/* 1. The Inputs (Dark Gray Pills) */
+.auth-input {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Semi-transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    /* Smooth rounded corners */
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-accent);
+    /* Glows purple on click */
+}
+
+/* 2. The Purple Button */
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-accent);
+    /* Your main purple color */
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    /* Fully rounded pill shape */
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    transform: scale(1.02);
+    /* Slight zoom effect */
+    filter: brightness(1.1);
+    /* Gets brighter */
+}
+
+/* 3. The Close 'X' Button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #a0aec0;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+/* 4. Links (Sign up / Log in text) */
+.auth-link {
+    color: var(--primary-accent);
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
 .interactive-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 0 25px 5px var(--shadow-color);
 }
 
 
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -102,7 +173,7 @@
 }
 
 .MusicPlaylists h1 {
-   padding: 16px;
+    padding: 16px;
 }
 
 .hamburger {
@@ -347,7 +418,7 @@
     display: flex;
     justify-content: normal;
     align-items: center;
-    gap:19px;
+    gap: 19px;
 }
 
 .songbuttons img,
@@ -380,16 +451,103 @@ input[type='range']::-webkit-slider-runnable-track {
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    margin-top: -6px; 
+    margin-top: -6px;
     background-color: var(--primary-accent);
     height: 16px;
     width: 16px;
     border-radius: 50%;
 }
 
-.spaceadjustment{
-        display: none;
-    }
+.spaceadjustment {
+    display: none;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* --- Login/Signup Form Styles --- */
+
+/* 1. The Inputs (Dark Gray Pills) */
+.auth-input {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Semi-transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    /* Smooth rounded corners */
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-accent);
+    /* Glows purple on click */
+}
+
+/* 2. The Purple Button */
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-accent);
+    /* Your main purple color */
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    /* Fully rounded pill shape */
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    transform: scale(1.02);
+    /* Slight zoom effect */
+    filter: brightness(1.1);
+    /* Gets brighter */
+}
+
+/* 3. The Close 'X' Button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #a0aec0;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+/* 4. Links (Sign up / Log in text) */
+.auth-link {
+    color: var(--primary-accent);
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 @media (max-width: 1200px) {
@@ -403,7 +561,7 @@ input[type='range']::-webkit-slider-thumb {
         padding: 0;
     }
 
-    .left.sidebaropen{
+    .left.sidebaropen {
         left: 0%;
     }
 
@@ -453,7 +611,7 @@ input[type='range']::-webkit-slider-thumb {
         width: auto;
     }
 
-   .card {
+    .card {
         flex: 1 1 400px;
     }
 
@@ -473,10 +631,11 @@ input[type='range']::-webkit-slider-thumb {
         align-items: center;
     }
 
-    .MusicPlaylists h1{
-         padding: 12px 2px;
+    .MusicPlaylists h1 {
+        padding: 12px 2px;
     }
-    .spaceadjustment{
+
+    .spaceadjustment {
         display: none;
     }
 }
@@ -485,32 +644,34 @@ input[type='range']::-webkit-slider-thumb {
     .card {
         flex: 1 1 400px;
     }
-    
-    .MusicPlaylists h1{
-         padding: 12px 2px;
+
+    .MusicPlaylists h1 {
+        padding: 12px 2px;
     }
-    .spaceadjustment{
+
+    .spaceadjustment {
         display: none;
     }
 }
 
-@media (max-width:390px){
-    .header{
-        width:379px;
+@media (max-width:390px) {
+    .header {
+        width: 379px;
     }
 
-    .signupbtn .loginbtn{
+    .signupbtn .loginbtn {
         padding: 6px 16px;
     }
 
-    .spaceadjustment{
+    .spaceadjustment {
         display: block;
     }
 
-    .cardcontainer{
-       box-sizing: border-box;
+    .cardcontainer {
+        box-sizing: border-box;
     }
-    .card{
+
+    .card {
         flex: 1 1 150px;
     }
 }

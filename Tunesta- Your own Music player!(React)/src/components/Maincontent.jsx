@@ -1,8 +1,12 @@
 import React from 'react'
 import "./Style.css"
 import "./Utility.css"
+import { useAuth } from '../context/Authcontext'
 
-const Maincontent = ({albums,handleAlbumClick,handlehamburgerclick,isDropdownOpen,toggleDropdown}) => {
+const Maincontent = ({ albums, handleAlbumClick, handlehamburgerclick, isDropdownOpen, toggleDropdown }) => {
+    // using the logout function from the authcontext
+    const { logout } = useAuth();
+
     return (
         <>
             {/* This is my right side of the Tunesta app */}
@@ -23,8 +27,9 @@ const Maincontent = ({albums,handleAlbumClick,handlehamburgerclick,isDropdownOpe
                     </div>
                 </div>
                 <div className="buttons hide-on-mobile">
-                    <button className="signupbtn">Sign up</button>
-                    <button className="loginbtn">Log in</button>
+
+                    {/* loginbtn is just the classname, the function is for Logging out only */}
+                    <button onClick={logout} className="loginbtn">Log out</button>
                 </div>
 
                 <div className="spaceadjustment">
@@ -33,17 +38,17 @@ const Maincontent = ({albums,handleAlbumClick,handlehamburgerclick,isDropdownOpe
             <div className="MusicPlaylists ">
                 <h1>Tunesta's Albums</h1>
                 <div className="cardcontainer">
-                    {/* <!-- Dyamically cards will be inserted using JS --> */ }
+                    {/* <!-- Dyamically cards will be inserted using JS --> */}
                     {albums.map((album) => {
                         return (
-                            <div key={album.folder} data-folder="album.folder" className="card glass-effect interactive-card" onClick={()=>handleAlbumClick(album)}>
+                            <div key={album.folder} data-folder="album.folder" className="card glass-effect interactive-card" onClick={() => handleAlbumClick(album)}>
                                 <div className="play">
                                     <svg role="img" height="50" width="50" aria-hidden="true" viewBox="0 0 24 24">
                                         <circle cx="12" cy="12" r="12" fill="#1DB954" />
                                         <polygon points="9,7 17,12 9,17" fill="#000000" />
                                     </svg>
                                 </div>
-                                <img src={`${import.meta.env.VITE_API_URL}${album.cover}`}  alt="song image" />
+                                <img src={`${import.meta.env.VITE_API_URL}${album.cover}`} alt="song image" />
                                 <h2>{album.title}</h2>
                                 <p>{album.description}</p>
                             </div>

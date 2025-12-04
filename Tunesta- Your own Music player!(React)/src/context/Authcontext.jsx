@@ -31,7 +31,7 @@ export const Authprovider = ({children})=>{
         // Setting up the states.
         setUser(userData);
         setToken(authtoken);
-        setAuthenticated(true);
+        setAuthenticated(true);   
 
         //Entering details into the localstorage of the browser.
         localStorage.setItem("tunesta_user", JSON.stringify(userData));
@@ -39,8 +39,8 @@ export const Authprovider = ({children})=>{
     }
 
     const logout = ()=>{
-        setUser(NULL);
-        setToken(NULL);
+        setUser(null);
+        setToken(null);
         setAuthenticated(false);
 
         //removing from the local storage

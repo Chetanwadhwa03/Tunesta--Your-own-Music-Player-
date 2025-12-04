@@ -25,8 +25,7 @@ const Home = () => {
     const [currentTimeInSeconds, setcurrentTimeInSeconds] = useState(0);
     const [durationInSeconds, setdurationInSeconds] = useState(0);
 
-
-
+  
 
     // State to set the currentVolume(1:100% & 0:0%)
     const [volume, setVolume] = useState(1);
@@ -208,7 +207,8 @@ const Home = () => {
                     <Maincontent
                         albums={albums}
                         handleAlbumClick={handleAlbumClick}
-                        handlehamburgerclick={handlehamburgerclick} />
+                        handlehamburgerclick={handlehamburgerclick}
+                         />
 
                     <div className="playbar glass-effect">
                         <Playbar
@@ -236,7 +236,7 @@ const Home = () => {
 
 
         </>
-        )
+    )
 }
 
 export default Home

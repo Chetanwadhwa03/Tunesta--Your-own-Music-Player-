@@ -7,6 +7,7 @@ import User from './Models/User.js'
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
+
 // This command is written to use the env variable inside the server.js
 dotenv.config();
 
@@ -30,6 +31,7 @@ const connectDB = async () => {
 };
 
 connectDB();
+
 
 
 // Middleware. (This was used to remove the CORS error).

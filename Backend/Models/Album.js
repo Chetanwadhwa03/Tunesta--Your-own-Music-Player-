@@ -1,5 +1,6 @@
 import mongoose, { mongo } from "mongoose";
 import songSchema from "./Song.js";
+import User from "./User.js";
 
 const albumSchema=mongoose.Schema({
     folder:{
@@ -20,6 +21,13 @@ const albumSchema=mongoose.Schema({
         type:String,
         required:true,
         trim:true
+    },
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:User,
+        required:true
+
+
     },
     songs:[songSchema]
 })

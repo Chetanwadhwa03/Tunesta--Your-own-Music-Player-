@@ -4,7 +4,6 @@
 // Otherwise we had to create the state and then use that state to pass it to the cloudinary, but that would be slow.
 
 import multer from 'multer';
-import {Cloudinarystorage} from 'multer-storage-cloudinary'
 
 // 1. Creating the storage
 const storage=multer.memoryStorage();
@@ -16,3 +15,5 @@ const upload= multer({
 
     limits:({filesize: 10*1024*1024})
 })
+
+export default upload;

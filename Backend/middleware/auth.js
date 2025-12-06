@@ -10,6 +10,8 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
+dotenv.config();
+
 const authenticatetoken = (req, res, next) => {
     // 1. taking the the header from the frontend
     // it sends something like beared ghdjklwb...
@@ -24,13 +26,14 @@ const authenticatetoken = (req, res, next) => {
     else {
         try {
             // decrypted the token using the secret key that we had
-            const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
+            const verified = jwt.verify(token, process.env.JWT_SECRET);
             // uploading the decrypted user authentication information to the req.user so that further functions could use it.
             req.user = verified;
             
             next();
         }
         catch (e) {
+            console.log(e)
             return res.status(500).json({ message: "Invalid Token" });
         }
     }

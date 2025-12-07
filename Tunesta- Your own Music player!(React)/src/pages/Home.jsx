@@ -1,6 +1,7 @@
 import Maincontent from "../components/Maincontent"
 import Playbar from "../components/Playbar"
 import Sidebar from "../components/Sidebar"
+import FileModal from "../components/FileModal"
 import CursorGlow from "../components/Mousemove"
 import React, { useState, useEffect, useRef } from "react"
 
@@ -25,13 +26,18 @@ const Home = () => {
     const [currentTimeInSeconds, setcurrentTimeInSeconds] = useState(0);
     const [durationInSeconds, setdurationInSeconds] = useState(0);
 
-  
+
 
     // State to set the currentVolume(1:100% & 0:0%)
     const [volume, setVolume] = useState(1);
 
     // State to set the display of the left block(because it get's disappeared when the screen size get's small)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // state for the uploadmodal to make sure when we click it toggles to upload the file 
+    const [isUploadOpen, setIsUploadOpen] = useState(false);
+
+
 
     // Creating a useRef hook, as an global remote which will be paired after sometime.
     const audioref = useRef(null);
@@ -62,9 +68,20 @@ const Home = () => {
         if (audioref.current) {
             // Because initially the value of the audioref.current would be NULL so to check now whether the audioref remote control has been paired to our audio object TV in the playbar.jsx.
 
+            // since moving forward in this project we have used the cloudinary storage to store the song files, so when you catch up the path of the file from there it is already a URL so if you write in the previous way like using the env variable it becomes the path having both the URL's of cloudinary as well as the localhost and that eventually is incorrect, that's why we have used this if else condition in it.
             if (isplaying && currentsong) {
-                const newsrc = `${import.meta.env.VITE_API_URL}${currentsong.path}`;
+                let newsrc;
+                if (currentsong.path.startsWith('http')) {
+                    // This would be the cloudinary link.
+                    newsrc = currentsong.path;
+                }
+                else {
+                    newsrc = `${import.meta.env.VITE_API_URL}${currentsong.path}`;
+                }
+
+
                 if (audioref.current.src !== newsrc) {
+                    audioref.current.src = newsrc;
                     audioref.current.play();
                 }
             }
@@ -187,6 +204,15 @@ const Home = () => {
         setIsMenuOpen(false);
     }
 
+    // Function 1: will be passed to Sidebar to OPEN the modal
+    const handleOpenUpload = () => {
+        setIsUploadOpen(true);
+    };
+
+    // Function 2: will be passed to FileModal to CLOSE the modal
+    const handleCloseUpload = () => {
+        setIsUploadOpen(false);
+    };
 
 
 
@@ -194,13 +220,19 @@ const Home = () => {
 
     return (
         <>
+            <FileModal
+            isUploadOpen={isUploadOpen}
+            handleCloseUpload={handleCloseUpload}
+            />
+
             <CursorGlow />
             <div className="container flex ">
                 <div className={`left glass-effect ${isMenuOpen ? 'sidebaropen' : ''} `} >
                     <Sidebar
                         songs={songs}
                         handlesongclick={handlesongclick}
-                        handleclosebutton={handleclosebutton} />
+                        handleclosebutton={handleclosebutton}
+                        handleOpenUpload={handleOpenUpload} />
                 </div>
 
                 <div className="right">
@@ -208,7 +240,7 @@ const Home = () => {
                         albums={albums}
                         handleAlbumClick={handleAlbumClick}
                         handlehamburgerclick={handlehamburgerclick}
-                         />
+                    />
 
                     <div className="playbar glass-effect">
                         <Playbar

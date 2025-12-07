@@ -2,36 +2,39 @@ import mongoose, { mongo } from "mongoose";
 import songSchema from "./Song.js";
 import User from "./User.js";
 
-const albumSchema=mongoose.Schema({
-    folder:{
-        type:String,
-        required:true,
-        unique:true
+const albumSchema = mongoose.Schema({
+    folder: {
+        type: String,
+        required: true,
+        
     },
-    title:{
-        type:String,
-        required:true,
-        trim:true
+    title: {
+        type: String,
+        required: true,
+        trim: true
     },
-    description:{
-        type:String,
-        trim:true
+    description: {
+        type: String,
+        trim: true
     },
-    cover:{
-        type:String,
-        required:true,
-        trim:true
+    cover: {
+        type: String,
+        required: true,
+        trim: true
     },
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:User,
-        required:true
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: User,
+        required: true
 
 
     },
-    songs:[songSchema]
+    songs: [songSchema]
 })
 
-const Album= mongoose.model('Album', albumSchema);
+const Album = mongoose.model('Album', albumSchema);
+
+// This means: " The combination of UserID AND FolderName must be unique "
+albumSchema.index({ user: 1, folder: 1 }, { unique: true });
 export default Album;
 

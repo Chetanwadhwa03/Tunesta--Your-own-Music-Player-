@@ -1,6 +1,6 @@
 # 🎵 Tunesta V2.0 - Cloud-Native Personal Music Streaming App
 
-![Tunesta Demo](./demo.gif)
+![Tunesta Demo](./demo/Tunesta-demo.gif)
 > *A full-stack, responsive music streaming application allowing users to curate their own private cloud libraries.*
 
 ### 🚀 Live Demo
@@ -147,4 +147,5 @@ To run this project locally, you will need your own Cloudinary and MongoDB crede
 
 The next major version of Tunesta is planned to introduce real-time social features and enhanced interactivity:
 
-* **Socket.io Integration:** Enabling "Listening Parties"
+* **Socket.io Integration:** Enabling "Listening Parties" where multiple users can stream the same song in perfect sync and chat in real-time.
+* **Drag & Drop Uploads:** Upgrading the file submission experience with a modern drag-and-drop zone for smoother media management.

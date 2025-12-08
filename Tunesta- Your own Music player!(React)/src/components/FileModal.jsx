@@ -2,9 +2,10 @@ import React from 'react'
 import { useState } from 'react'
 import { useAuth } from '../context/Authcontext'
 
-const FileModal = ({ isUploadOpen, handleCloseUpload }) => {
+const FileModal = ({ isUploadOpen, handleCloseUpload, fetchalbums }) => {
     // since this for file upload we need states like
     const [songFile, setsongFile] = useState(null);
+    const [imageFile, setimageFile] = useState(null);
     const [albumTitle, setalbumTitle] = useState("");
     const [albumDescription, setalbumDescription] = useState("");
     const [songName, setsongName] = useState("");
@@ -20,6 +21,12 @@ const FileModal = ({ isUploadOpen, handleCloseUpload }) => {
         setsongFile(e.target.files[0]);
     }
 
+    // We set the image file that we uploaded in the state.
+    const imageFileSelection = (e) => {
+        setimageFile(e.target.files[0]);
+    }
+
+
     // We will click on the submit button after entering all the necessary information related to the uploaded song.
     const handleSubmit = async (e) => {
 
@@ -32,6 +39,12 @@ const FileModal = ({ isUploadOpen, handleCloseUpload }) => {
         formdata.append('albumTitle', albumTitle);
         formdata.append('songName', songName);
         formdata.append('description', albumDescription);
+
+        if (imageFile) {
+            formdata.append('cover', imageFile)
+        }
+
+
 
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/upload-song`, {
@@ -47,6 +60,7 @@ const FileModal = ({ isUploadOpen, handleCloseUpload }) => {
             if (response.ok) {
                 // Success Status code-> file has been uploaded to either exisiting album or new album
                 alert('Upload Successful');
+                fetchalbums();
                 handleCloseUpload();
             }
             else {
@@ -75,7 +89,7 @@ const FileModal = ({ isUploadOpen, handleCloseUpload }) => {
                 border: '1px solid rgba(255, 255, 255, 0.1)'
             }}>
 
-                {/* Close Button (Using the onClose prop!) */}
+                {/* Close Button (Using the onClose prop.) */}
                 <button onClick={handleCloseUpload} style={{
                     position: 'absolute', top: '15px', right: '15px',
                     background: 'transparent', border: 'none', color: 'white',
@@ -128,10 +142,20 @@ const FileModal = ({ isUploadOpen, handleCloseUpload }) => {
                         rows="3"
                     ></textarea>
 
-                    {/* Submit Button */}
-                    <button type="submit" className="auth-btn" style={{ marginTop: '10px', backgroundColor: '#1DB954' }}>
-                        Upload Track
-                    </button>
+                    <div className="input-group">
+                        <label>Select Cover Image (Optional)</label>
+                        <input
+                            type="file"
+                            accept="image/*" // Only accept images
+                            onChange={(e) => setimageFile(e.target.files[0])}
+                            className="text-black" 
+                        />
+                    </div>
+
+                        {/* Submit Button */}
+                        <button type="submit" className="auth-btn" style={{ marginTop: '10px', backgroundColor: '#1DB954' }}>
+                            Upload Track
+                        </button>
                 </form>
             </div>
         </div>

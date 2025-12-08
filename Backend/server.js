@@ -51,10 +51,10 @@ app.get('/', (req, res) => {
 })
 
 // Now the data getting fetched from the live MongoDB database.
-app.get('/albums', async (req, res) => {
+app.get('/albums', authenticatetoken, async (req, res) => {
   try {
     // Fixed: Used Capitalized Album model
-    const albums = await Album.find({});
+    const albums = await Album.find({user: req.user.userid});
     res.json(albums);
   }
   catch (error) {
@@ -154,6 +154,8 @@ app.post('/auth/login', async (req, res) => {
 
 // 1.MiddleWare: using upload.single('song'), means that the song will be uploaded on the storage that we have defined in the multer with the limit also, the storage is the RAM in which the file will be their for some milliseconds before going to the cloudinary
 
+// we have updated our middlware as upload.files(), because we want to upload both the song as well as the image file.
+
 // Summary of the Flow
 // Here is the life of your request now:
 
@@ -184,14 +186,21 @@ app.post('/auth/login', async (req, res) => {
 // Sends Response (res.json). The End.
 
 
-app.post('/upload-song', authenticatetoken, upload.single('song'), async (req, res) => {
+app.post('/upload-song', authenticatetoken, upload.fields([{ name: 'song', maxCount: 1 }, { name: 'cover', maxCount: 1 }]), async (req, res) => {
   try {
-    // if the file is not uploaded.
-    if (!req.file) {
+    // Either both the files are not uploaded or just the song file is not uploaded(cover is optional).
+    if (!req.files || !req.files['song']) {
       return res.status(200).json({
         message: 'Please upload the file first.'
       });
     }
+
+    // defining the song and cover images separately
+    const songupload = req.files['song'][0];
+    const coverupload = req.files['cover'] ? req.files['cover'][0] : null;
+
+
+
 
     // if the file is uploaded then we have to make sure to send it to the cloudinary and get the link.
 
@@ -218,12 +227,47 @@ app.post('/upload-song', authenticatetoken, upload.single('song'), async (req, r
 
       // This means adding the water to the pipe through the bucket of water.
       // here since we have used the memorystorage in the multer, therefore the file is stored in the buffer.
-      uploadstream.end(req.file.buffer);
+      uploadstream.end(songupload.buffer);
 
     });
 
     // we wrapped the uploadstream function in to a promise just because to use the await here, because uploading to cloudinary follows a traditional JS approach in which the callback hell is the major problem, so to make sure that does not happen, we have wrapped it in to a promise.
     const cloudinaryResult = await cloudinaryUpload;
+
+
+    // Since coverimage uploading is optional so we have to give a default cover url also.
+    let coverurl = "https://res.cloudinary.com/dqkknf9vy/image/upload/v1765177467/default_cover_ppixnk.jpg";
+
+    if (coverupload) {
+      // Here we have to upload the image to cloudinary also, so BRUTE FORCE: writting the promise for image.
+
+      const imagecloudinaryupload = new Promise((resolve, reject) => {
+        // 1. We setted up the bridge.
+        const imageuploadstream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: "auto",
+            folder: "tunesta_coverimages"
+          },
+
+          (error, result) => {
+            if (error) {
+              reject(error);
+            }
+            else {
+              resolve(result);
+            }
+          }
+        );
+
+        // here in the req.file.buffer cannot just give both the things the song and image with it's own mind so we have to define them separately, that i will do few lines above.
+        imageuploadstream.end(coverupload.buffer);
+      });
+
+      const imagecloudinaryresult = await imagecloudinaryupload;
+      coverurl=imagecloudinaryresult.secure_url;
+    }
+
+
 
     // here cloudinary result will be containing the result of the promise like the filetype, URL etc.
     // therfore either we will make the separate song model or will use the exisiting album model to
@@ -233,7 +277,7 @@ app.post('/upload-song', authenticatetoken, upload.single('song'), async (req, r
 
     const songData =
     {
-      name: req.body.albumname || req.file.originalname,
+      name: req.body.albumname || songupload.originalname,
       path: cloudinaryResult.secure_url
     }
 
@@ -261,10 +305,10 @@ app.post('/upload-song', authenticatetoken, upload.single('song'), async (req, r
       const newAlbum = await Album.create(
         {
           user: req.user.userid,
-          folder: "User uploads",
+          folder: albumTitle,
           title: req.body.albumTitle || songData.name,
           description: req.body.description || "Recently Created by the User",
-          cover: req.body.cover || "img/default_cover.jpg",
+          cover: coverurl,
           songs: [songData]
         })
 

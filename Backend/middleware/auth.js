@@ -20,9 +20,10 @@ const authenticatetoken = (req, res, next) => {
 
     const token = authHeader && authHeader.split(' ')[1];
 
-    if (!token) {
-        return res.status(401).json({ mesaage: "Authentication failed." })
+    if (!token || token === 'undefined' || token === "null") {
+        return res.status(401).json({ success:false,message: "Authentication failed." })
     }
+
     else {
         try {
             // decrypted the token using the secret key that we had
@@ -33,7 +34,7 @@ const authenticatetoken = (req, res, next) => {
             next();
         }
         catch (e) {
-            console.log(e)
+            console.log(e.message)
             return res.status(500).json({ message: "Invalid Token" });
         }
     }

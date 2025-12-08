@@ -39,7 +39,7 @@ const Maincontent = ({ albums, handleAlbumClick, handlehamburgerclick, isDropdow
                 <h1>Tunesta's Albums</h1>
                 <div className="cardcontainer">
                     {/* <!-- Dyamically cards will be inserted using JS --> */}
-                    {albums.map((album) => {
+                    {Array.isArray(albums) && albums.map((album) => {
                         return (
                             <div key={album.folder} data-folder="album.folder" className="card glass-effect interactive-card" onClick={() => handleAlbumClick(album)}>
                                 <div className="play">
@@ -48,7 +48,10 @@ const Maincontent = ({ albums, handleAlbumClick, handlehamburgerclick, isDropdow
                                         <polygon points="9,7 17,12 9,17" fill="#000000" />
                                     </svg>
                                 </div>
-                                <img src={`${import.meta.env.VITE_API_URL}${album.cover}`} alt="song image" />
+                                <img
+                                    src={album.cover.startsWith('http') ? album.cover : `${import.meta.env.VITE_API_URL}${album.cover}`}
+                                    alt="song image"
+                                />
                                 <h2>{album.title}</h2>
                                 <p>{album.description}</p>
                             </div>

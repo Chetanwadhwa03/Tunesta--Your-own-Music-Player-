@@ -44,18 +44,32 @@ const Home = () => {
 
 
     // Using my useffect hook, this will run only on the first render.
-    useEffect(() => {
-        const fetchalbums = async () => {
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/albums`);
-                const data = await response.json();
+    const fetchalbums = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/albums`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('tunesta_usertoken')}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
                 setAlbums(data);
                 console.log("The data has been fetched successfully: ", data);
             }
-            catch (error) {
-                console.log("Failed to fetch albums: ", error);
+            else {
+                console.log("Server Error", data.message);
             }
         }
+        catch (error) {
+            console.log("Failed to fetch albums: ", error);
+        }
+    }
+
+    useEffect(() => {
         fetchalbums();
     }, [])
 
@@ -82,6 +96,9 @@ const Home = () => {
 
                 if (audioref.current.src !== newsrc) {
                     audioref.current.src = newsrc;
+                    audioref.current.play();
+                }
+                else{
                     audioref.current.play();
                 }
             }
@@ -221,8 +238,9 @@ const Home = () => {
     return (
         <>
             <FileModal
-            isUploadOpen={isUploadOpen}
-            handleCloseUpload={handleCloseUpload}
+                isUploadOpen={isUploadOpen}
+                handleCloseUpload={handleCloseUpload}
+                fetchalbums={fetchalbums}
             />
 
             <CursorGlow />

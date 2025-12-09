@@ -6,7 +6,7 @@ import Signup from './pages/Signup';
 // These components, and cc are imported just to use the toastify part in our project.
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import "./components/style.css"
+import "./components/Style.css"
 
 
 function App(){

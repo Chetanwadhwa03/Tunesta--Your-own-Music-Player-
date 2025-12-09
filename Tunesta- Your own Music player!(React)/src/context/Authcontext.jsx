@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext, use } from 'react'
+import { toast } from 'react-toastify';
 
 const Authcontext= createContext();
 
@@ -39,6 +40,7 @@ export const Authprovider = ({children})=>{
     }
 
     const logout = ()=>{
+        
         setUser(null);
         setToken(null);
         setAuthenticated(false);

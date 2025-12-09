@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "../components/Style.css"
 // import "../components/Utility.css" 
 import { Link, useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 
 const Signup = () => {
@@ -9,13 +10,11 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // This is to reflect back the error on the UI.
-    const [error, setError] = useState('');
-
     const handleSignup = async (e) => {
         e.preventDefault();
-        console.log("Signup Logic will go here:", email, password);
 
+        const loadingToast=toast.loading("Signing in...")
+        
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
                 method: 'POST',
@@ -26,17 +25,21 @@ const Signup = () => {
             })
 
             const data = response.json();
+            toast.dismiss(loadingToast);
 
             if (response.ok) {
+                toast.success("Signup Sucessful, Welcome to Tunesta! 🎵")
                 navigate('/login');
                 console.log('signup successful')
             }
             else {
-                setError(data.message);
+                toast.error("Signup Failed!")
                 console.log("Signup unsuccessful with the message ", data.message)
             }
         }
         catch (e) {
+            toast.dismiss(loadingToast);
+            toast.error("Something Went wrong, try again later..");
             console.log("Signup unsuccessful with the error: ", e);
         }
 
@@ -59,9 +62,6 @@ const Signup = () => {
                         Create Account
                     </button>
                 </form>
-
-                {/* To show the error, if login is not successful. */}
-                {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
 
                 <p style={{ textAlign: 'center', color: '#a0aec0', fontSize: '14px', marginTop: '10px' }}>
                     Already have an account?

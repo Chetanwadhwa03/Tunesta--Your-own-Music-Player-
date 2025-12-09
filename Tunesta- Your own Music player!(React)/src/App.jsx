@@ -3,6 +3,10 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import {useAuth} from './context/Authcontext'
 import Signup from './pages/Signup';
+// These components, and cc are imported just to use the toastify part in our project.
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import "./components/style.css"
 
 
 function App(){
@@ -28,7 +32,12 @@ function App(){
 
 
   return (
+    <>
+    {/* This toastcontainer is wrapping all of the program so it gives space for the toasts to appear on the top right of the screen for 3 seconds and with the theme dark. */}
+    <ToastContainer theme="dark" position='top-right' autoClose={2000} toastClassName={"glass-toast"} />
     <RouterProvider router={router}/>
+    
+    </>
     
   )
 }

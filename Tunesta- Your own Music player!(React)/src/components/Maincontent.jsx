@@ -2,10 +2,23 @@ import React from 'react'
 import "./Style.css"
 import "./Utility.css"
 import { useAuth } from '../context/Authcontext'
+import { toast } from 'react-toastify'
 
 const Maincontent = ({ albums, handleAlbumClick, handlehamburgerclick, isDropdownOpen, toggleDropdown }) => {
     // using the logout function from the authcontext
     const { logout } = useAuth();
+
+    const handleLogout = () => {
+        // 2. Show the notification
+        
+        // 1. Clear the user data
+        logout();
+        toast.info("Logged out successfully. See you soon! 👋");
+
+
+        // 3. Redirect user to Login page
+        navigate("/login");
+    }
 
     return (
         <>
@@ -29,7 +42,7 @@ const Maincontent = ({ albums, handleAlbumClick, handlehamburgerclick, isDropdow
                 <div className="buttons hide-on-mobile">
 
                     {/* loginbtn is just the classname, the function is for Logging out only */}
-                    <button onClick={logout} className="loginbtn">Log out</button>
+                    <button onClick={handleLogout} className="loginbtn">Log out</button>
                 </div>
 
                 <div className="spaceadjustment">

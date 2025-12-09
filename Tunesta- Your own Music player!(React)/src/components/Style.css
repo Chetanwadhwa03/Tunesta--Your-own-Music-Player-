@@ -202,7 +202,8 @@
 
 .card img {
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    height: 200px;
 }
 
 .logo img {
@@ -540,7 +541,50 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 
+/* !important is used to make sure that our css is being used, because the toastify has a strong css and to use ours we have to write this  */
+/* The Glass Container for the Toast */
+.glass-toast {
+    background: rgba(0, 0, 0, 0.6) !important;
+    /* Dark semi-transparent */
+    backdrop-filter: blur(10px) !important;
+    /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    /* Subtle border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+    border-radius: 15px !important;
+    color: #ffffff !important;
+    /* White text */
+    font-family: inherit !important;
+    /* Matches your app font */
+}
 
+/* Customizing the Progress Bar to look glowing */
+.Toastify__progress-bar {
+    height: 4px !important;
+    background: linear-gradient(to right, #1db954, #1ed760) !important;
+    
+}
+
+/* Specific Progress Bar Colors for specific types */
+.Toastify__progress-bar--error {
+    background: linear-gradient(to right, #ff4b2b, #ff416c) !important;
+    /* Red Gradient */
+}
+
+.Toastify__progress-bar--success {
+    background: linear-gradient(to right, #1db954, #1ed760) !important;
+    /* Green Gradient */
+}
+
+.Toastify__progress-bar--warning {
+    background: linear-gradient(to right, #f7971e, #ffd200) !important;
+    /* Yellow Gradient */
+}
+
+/* Customize the Close Button (the little 'x') */
+.Toastify__close-button {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
 
 
 
@@ -653,6 +697,8 @@ input[type='range']::-webkit-slider-thumb {
         display: none;
     }
 }
+
+
 
 @media (max-width:390px) {
     .header {

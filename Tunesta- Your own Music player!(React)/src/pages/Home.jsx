@@ -58,7 +58,6 @@ const Home = () => {
 
             if (response.ok) {
                 setAlbums(data);
-                console.log("The data has been fetched successfully: ", data);
             }
             else {
                 console.log("Server Error", data.message);

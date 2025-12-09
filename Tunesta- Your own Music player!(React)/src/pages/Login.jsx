@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import "../components/Style.css"
 import "../components/Utility.css"
+import { toast } from 'react-toastify';
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth,Authprovider } from '../context/Authcontext'
@@ -10,9 +11,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // This is to reflect back the error on the UI.
-    const [error, setError]=useState('');
-
+ 
     // to use the login function declared in the authcontext.
     const {login} = useAuth();
     // to use the navigate function of the react-router-dom.    
@@ -21,8 +20,12 @@ const Login = () => {
     const handlelogin = async (e) => {
         // to prevent the default action of the form to refresh the server upon submission.
         e.preventDefault();
-        console.log("Login Successful with: ", email, password);
+        
+        if(!email || !password){
+            toast.warning("Please enter both email and the password");
+        }
 
+        const loadingToast=toast.loading("Logging in...");
 
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
@@ -36,22 +39,26 @@ const Login = () => {
 
             const data= await response.json();
 
+            toast.dismiss(loadingToast);
+
             if(response.ok){
-                // 1. Updating the login status at the Authcontext to make the app know that the user is login
-                // ye nahi likh paa raha ki login ko kaise use karunga context se.
+                // 1. Updating the login status at the Authcontext to make the app know that the user is login.
+                toast.success("Welcome back! 🎵")
                 login(data.user,data.token);
 
                 // route change to home page
-                Navigate("/");
+                navigate("/");
 
             }
             else{
-                setError(data.message);
+                toast.error("Check your Credentials and try again...")
                 console.log("Login failed because of the message: ", data.message);
             }
 
         }
         catch(e) {
+            toast.dismiss(loadingToast);
+            toast.error("Something went wrong, please try again later...")
             console.log("login failed with the error: ",e);
         }
 
@@ -112,9 +119,6 @@ const Login = () => {
                             Log In
                         </button>
                     </form>
-
-                    {/* To show the error, if login is not successful. */}
-                    {error && <div style={{color:'red', marginTop:'10px'}}>{error}</div>}
 
                     <p style={{ textAlign: 'center', color: '#a0aec0', fontSize: '14px', marginTop: '10px' }}>
                         Don't have an account?

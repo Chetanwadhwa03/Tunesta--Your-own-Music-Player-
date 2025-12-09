@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useAuth } from '../context/Authcontext'
+import { toast } from 'react-toastify'
 
 const FileModal = ({ isUploadOpen, handleCloseUpload, fetchalbums }) => {
     // since this for file upload we need states like
@@ -31,7 +32,7 @@ const FileModal = ({ isUploadOpen, handleCloseUpload, fetchalbums }) => {
     const handleSubmit = async (e) => {
 
         e.preventDefault();
-
+        const loadingToast = toast.loading("Uploading your masterpiece 🎧....!")
 
         // 1. Creating the enevelope in which the mp3 file will go that is our formdata.
         const formdata = new FormData();
@@ -59,17 +60,22 @@ const FileModal = ({ isUploadOpen, handleCloseUpload, fetchalbums }) => {
 
             if (response.ok) {
                 // Success Status code-> file has been uploaded to either exisiting album or new album
-                alert('Upload Successful');
+                toast.dismiss(loadingToast);
+                toast.success("Song Uploaded successfully!");
+                // this fetchalbums is basically acting as the refresh feature, when the album will be loaded in the DB then the albums from the database will again be fetched to make sure we see the uploaded albums also.
+                
                 fetchalbums();
                 handleCloseUpload();
             }
             else {
-                alert('Upload Failed: ' + data.message);
+                toast.dismiss(loadingToast);
+                toast.error("Failed to upload the song..");
 
             }
         }
         catch (e) {
-            console.log("Error uploading: ", e);
+            toast.dismiss(loadingToast);
+            toast.error("Failed to upload the song..");
         }
     }
 
@@ -148,14 +154,14 @@ const FileModal = ({ isUploadOpen, handleCloseUpload, fetchalbums }) => {
                             type="file"
                             accept="image/*" // Only accept images
                             onChange={(e) => setimageFile(e.target.files[0])}
-                            className="text-black" 
+                            className="text-black"
                         />
                     </div>
 
-                        {/* Submit Button */}
-                        <button type="submit" className="auth-btn" style={{ marginTop: '10px', backgroundColor: '#1DB954' }}>
-                            Upload Track
-                        </button>
+                    {/* Submit Button */}
+                    <button type="submit" className="auth-btn" style={{ marginTop: '10px', backgroundColor: '#1DB954' }}>
+                        Upload Track
+                    </button>
                 </form>
             </div>
         </div>

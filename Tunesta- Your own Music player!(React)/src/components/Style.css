@@ -562,7 +562,7 @@ input[type='range']::-webkit-slider-thumb {
 .Toastify__progress-bar {
     height: 4px !important;
     background: linear-gradient(to right, #1db954, #1ed760) !important;
-    
+
 }
 
 /* Specific Progress Bar Colors for specific types */
@@ -586,6 +586,48 @@ input[type='range']::-webkit-slider-thumb {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
+
+.logincontainer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* to set up the background image */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://res.cloudinary.com/dqkknf9vy/image/upload/v1765542729/loginpageimage_u6bgsy.png);
+    /* covering my whole container without either leaving empty space or overstretching the image */
+    background-size: cover;
+    /* we are starting the bg image from the center */
+    background-position: center;
+    /* the image will not be repeated if their is even empty space also */
+    background-repeat: no-repeat;
+
+
+}
+
+.signupcontainer {
+    height: 100vh;
+    width: 100vw; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+
+
+     /* to set up the background image */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://res.cloudinary.com/dqkknf9vy/image/upload/v1765542729/loginpageimage_u6bgsy.png);
+    /* covering my whole container without either leaving empty space or overstretching the image */
+    background-size: cover;
+    /* we are starting the bg image from the center */
+    background-position: center;
+    /* the image will not be repeated if their is even empty space also */
+    background-repeat: no-repeat;
+
+
+
+
+}
 
 
 
@@ -696,6 +738,18 @@ input[type='range']::-webkit-slider-thumb {
     .spaceadjustment {
         display: none;
     }
+
+    .logincontainer{
+        position: fixed;
+        background-size: cover;
+        background-position:19% center !important;
+    }
+
+    .signupcontainer{
+        position: fixed;
+        background-size: cover;
+        background-position:19% center !important;
+    }
 }
 
 
@@ -719,5 +773,17 @@ input[type='range']::-webkit-slider-thumb {
 
     .card {
         flex: 1 1 150px;
+    }
+
+    .logincontainer{
+        position: fixed;
+        background-size: cover;
+        background-position:24% center;
+    }
+
+     .signupcontainer{
+        position: fixed;
+        background-size: cover;
+        background-position:19% center !important;
     }
 }

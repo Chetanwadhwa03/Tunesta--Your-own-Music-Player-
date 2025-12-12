@@ -48,7 +48,7 @@ const Signup = () => {
     }
 
     return (
-        <div className="container" style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="signupcontainer">
             <div className="glass-effect" style={{ width: '450px', padding: '40px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 0 40px rgba(0,0,0,0.5)' }}>
 
                 <h1 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '32px' }}>Sign Up</h1>

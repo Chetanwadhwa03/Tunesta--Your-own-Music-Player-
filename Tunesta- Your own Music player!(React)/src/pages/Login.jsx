@@ -70,14 +70,7 @@ const Login = () => {
 
     return (
         <>
-            <div className="container" style={{
-                height: '100vh',
-                width: '100vw',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
+            <div className="logincontainer">
 
                 <div className="glass-effect" style={{
                     width: '450px',

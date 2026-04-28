@@ -9,7 +9,6 @@ const Maincontent = ({ albums, handleAlbumClick, handlehamburgerclick, isDropdow
     const { logout } = useAuth();
 
     const handleLogout = () => {
-        // 2. Show the notification
         
         // 1. Clear the user data
         logout();

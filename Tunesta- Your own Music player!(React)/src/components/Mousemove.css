@@ -1,15 +1,10 @@
-/* src/components/Mousemove.css */
 .cursor-glow {
-    /* --- Core Positioning (No Change) --- */
     position: fixed;
     z-index: 9999;
     pointer-events: none;
     transform: translate(-50%, -50%);
     border-radius: 50%;
 
-    /* --- NEW: The "Aura" Effect --- */
-    
-    /* 1. Smaller, more focused size */
     width: 400px;
     height: 400px;
 

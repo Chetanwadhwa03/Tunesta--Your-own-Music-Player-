@@ -21,7 +21,7 @@ const Signup = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({email,password}), // Convert your data to a JSON string
+                body: JSON.stringify({email,password}),
             })
 
             const data = response.json();

@@ -26,5 +26,4 @@ dist-ssr
 # Local environment variables
 .env.local
 
-#Backend/.gitignore
 .env

@@ -30,17 +30,17 @@ const Sidebar = ({ songs, handlesongclick, handleclosebutton, handleOpenUpload }
                         cursor: 'pointer',
                         marginTop: '15px',
                         marginBottom: '15px',
-                        display: 'flex',            // Makes content align nicely
-                        alignItems: 'center',       // Vertically center content
-                        justifyContent: 'center',   // Horizontally center content
-                        gap: '12px',                // Space between icon and text
-                        padding: '12px',            // Breathing room
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)', // Subtle white tint (Glass)
-                        border: '1px solid rgba(255, 255, 255, 0.1)', // Thin glass border
-                        borderRadius: '10px',       // Rounded corners
-                        width: '90%',               // Width relative to sidebar
-                        alignSelf: 'center',        // Center the button itself in the sidebar
-                        transition: 'background 0.3s' // Smooth hover effect
+                        display: 'flex',            
+                        alignItems: 'center',       
+                        justifyContent: 'center',   
+                        gap: '12px',               
+                        padding: '12px',            
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)', 
+                        border: '1px solid rgba(255, 255, 255, 0.1)', 
+                        borderRadius: '10px',       
+                        width: '90%',               
+                        alignSelf: 'center',        
+                        transition: 'background 0.3s' 
                     }}
                     onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)'}
@@ -52,7 +52,7 @@ const Sidebar = ({ songs, handlesongclick, handleclosebutton, handleOpenUpload }
                         Upload Song
                     </div>
                 </div>
-                {/* ----------------------------- */}
+             
 
                 <div className="songlist">
                     <ul>

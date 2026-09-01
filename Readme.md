@@ -1,4 +1,4 @@
-# 🎵 Tunesta V2.0 - Cloud-Native Personal Music Streaming App
+# 🎵 Tunesta - Cloud-Native Personal Music Streaming App
 
 ![Tunesta Demo](./demo/Tunesta-demo.gif)
 > *A full-stack, responsive music streaming application allowing users to curate their own private cloud libraries.*
@@ -10,13 +10,14 @@
 
 ## 📖 About The Project
 
-**Tunesta V2.0** is a fully functional **SaaS (Software as a Service) prototype**. It solves the problem of media management by allowing users to securely upload, store, and stream their own music collection from the cloud.
+I needed a place to upload, store, and stream audio files without depending on a platform's personal-library rules or licensing assumptions, so 
+instead of working around Spotify's ecosystem, I built a custom ***upload and storage pipeline*** on Cloudinary and served playback through my own backend. Rather than storing the BLOB's on mongoDB , i decoupled the system and just stored the metadata in the mongoDB and BLOB's on cloudinary.
 
-Built with a **decoupled architecture**, it separates the frontend logic from a robust Node.js API, handling complex tasks like binary file streaming, secure authentication, and database indexing.
+It is a most basic thing i've started with but made sure that i proved my brother and gave him a software to have his own songs in it and enjoy it with a feel.
 
 ---
 
-## ✨ Key Features (V2.0)
+## ✨ Key Features
 
 ### 🔐 Advanced Authentication & Security
 * **JWT Authorization:** Implemented stateless authentication using **JSON Web Tokens**.
@@ -39,13 +40,12 @@ Built with a **decoupled architecture**, it separates the frontend logic from a 
 
 | Domain | Technologies |
 | :--- | :--- |
-| **Frontend** | React.js (Vite), Context API (State Management), CSS3 (Glassmorphism), Fetch API |
+| **Frontend** | React.js (Vite) |
 | **Backend** | Node.js, Express.js, RESTful API Design |
-| **Database** | MongoDB Atlas (NoSQL), Mongoose ODM |
+| **Database** | MongoDB Atlas (NoSQL), mongoose |
 | **Storage** | Cloudinary (Media CDN) |
 | **Auth** | JWT (JSON Web Tokens), BCrypt.js |
 | **Deployment** | Netlify (Frontend), Render (Backend) |
-| **Version Control** | Git, GitHub (Feature Branch Workflow) |
 
 ---
 
@@ -66,13 +66,7 @@ The application uses a **Decoupled Client-Server Architecture**:
 
 ## 🧠 Real Technical Challenges Solved
 
-Building V2.0 required solving several critical engineering hurdles:
-
-1.  **Legacy Database Indexes (`E11000 Error`):**
-    * *Problem:* The application kept crashing during uploads with a "Duplicate Key Error," even for unique song titles.
-    * *Solution:* Debugged MongoDB Atlas indexes and discovered a legacy unique index on the `folder` field from V1.0. Removed the index and refactored the Schema to allow dynamic folder creation.
-
-2.  **The "Undefined" Token Crash:**
+1.  **The "Undefined" Token Crash:**
     * *Problem:* The backend was crashing with `jwt malformed` errors.
     * *Solution:* Discovered that `localStorage` key mismatches (`token` vs `tunesta_usertoken`) caused the frontend to send the literal string `"undefined"` instead of the token. Implemented strict null-checks in the auth middleware to block invalid strings before verification.
 
@@ -86,11 +80,11 @@ Building V2.0 required solving several critical engineering hurdles:
 
 5.  **Audio Player Logic Gap:**
     * *Problem:* The player would fail to resume a song if it was paused and then played again (because the source URL hadn't changed).
-    * *Solution:* Overhauled the `useEffect` dependency logic to handle the "Resume" case separately from the "New Song" case.
+    * *Solution:* Changed the `useEffect` dependency logic to handle the "Resume" case separately from the "New Song" case.
 
 6.  **Production Asset Routing:**
     * *Problem:* Images broke in production because the frontend was prepending `localhost` to absolute Cloudinary URLs.
-    * *Solution:* Implemented a conditional check (`startsWith('http')`) to differentiate between legacy local assets and new cloud-hosted URLs.
+    * *Solution:* Implemented a conditional check (`startsWith('http')`) to differentiate between localhost and new cloud-hosted URLs.
 
 7.  **SPA Routing on Static Hosts:**
     * *Problem:* Refreshing the page on `/login` or `/signup` resulted in a 404 error on Netlify.
@@ -143,9 +137,9 @@ To run this project locally, you will need your own Cloudinary and MongoDB crede
 
 ---
 
-## 🔮 Future Roadmap (V3.0)
+## 🔮 Future Roadmap 
 
 The next major version of Tunesta is planned to introduce real-time social features and enhanced interactivity:
 
 * **Socket.io Integration:** Enabling "Listening Parties" where multiple users can stream the same song in perfect sync and chat in real-time.
-* **Drag & Drop Uploads:** Upgrading the file submission experience with a modern drag-and-drop zone for smoother media management.
+* **Scaling** Scaling it so that multiple users can use it.
